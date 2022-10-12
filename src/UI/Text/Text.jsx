@@ -14,7 +14,6 @@ export const Text = prop => {
     href,
     center,
     onClick,
-    ariaLabel,
     fontWeight,
   } = prop;
 
@@ -32,7 +31,6 @@ export const Text = prop => {
     className={classes}
     href={href}
     onClick={onClick}
-    aria-label={ariaLabel}
     fontWeight={fontWeight}
   >
     {children}
@@ -49,7 +47,6 @@ Text.propTypes = {
   href: PropTypes.string,
   center: PropTypes.bool,
   onClick: PropTypes.func,
-  ariaLabel: PropTypes.string,
   fontWeight: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.string,

@@ -4,8 +4,8 @@ import {Text} from '../../../../../UI/Text';
 
 
 export const Rating = ({ups}) => (
-  <Text As='div' className={style.rating}>
-    <Text As='button' className={style.up} aria-label='Повысить рейтинг' />
+  <div className={style.rating}>
+    <button className={style.up} aria-label='Повысить рейтинг' />
     <Text
       As='p'
       className={style.ups}
@@ -16,8 +16,8 @@ export const Rating = ({ups}) => (
     >
       {ups}
     </Text>
-    <Text As='button' className={style.down} aria-label='Понизить рейтинг' />
-  </Text>
+    <button className={style.down} aria-label='Понизить рейтинг' />
+  </div>
 );
 
 Rating.propTypes = {
