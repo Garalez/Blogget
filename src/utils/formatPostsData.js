@@ -6,6 +6,6 @@ export const formatPostsData = (arr) => {
     ups: item.data.ups,
     created: item.data.created,
   }));
-  console.log('formattedArray: ', formattedArray);
+
   return formattedArray;
 };
