@@ -27,17 +27,17 @@ export const Auth = () => {
           <LoginIcon className={style.svg} />
         </Text>
       }
-      {exitButton ? (
-          <button
-            className={style.logout}
-            onClick={() => {
-              location.href = '/';
-              delToken(true);
-              clearAuth();
-            }}
-          >
-          Выйти
-          </button>) : null}
+      {exitButton && (
+        <button
+          className={style.logout}
+          onClick={() => {
+            location.href = '/';
+            delToken(true);
+            clearAuth();
+          }}
+        >
+        Выйти
+        </button>)}
     </div>
   );
 };
