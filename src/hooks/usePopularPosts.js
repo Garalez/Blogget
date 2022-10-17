@@ -2,6 +2,7 @@
 import {useContext, useEffect, useState} from 'react';
 import {URL_API} from '../api/const';
 import {tokenContext} from '../context/tokenContext';
+import {formatPostsData} from '../utils/formatPostsData';
 
 export const usePopularPosts = () => {
   const {token} = useContext(tokenContext);
@@ -17,7 +18,7 @@ export const usePopularPosts = () => {
     })
       .then((response) => response.json())
       .then(({data}) => {
-        setList([...data.children]);
+        setList(formatPostsData(data.children));
       })
       .catch(err => {
         console.error(err);
