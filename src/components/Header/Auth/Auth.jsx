@@ -1,14 +1,17 @@
 /* eslint-disable max-len */
-import {useState} from 'react';
-import PropTypes from 'prop-types';
+import {useState, useContext} from 'react';
 import style from './Auth.module.css';
 import {ReactComponent as LoginIcon} from './img/login.svg';
 import {urlAuth} from '../../../api/auth';
 import {Text} from '../../../UI/Text';
+import {tokenContext} from '../../../context/tokenContext';
+import {authContext} from '../../../context/authContext';
 
 
-export const Auth = ({delToken, auth}) => {
+export const Auth = () => {
+  const {delToken} = useContext(tokenContext);
   const [exitButton, setExitButton] = useState(false);
+  const {auth, clearAuth} = useContext(authContext);
 
   return (
     <div className={style.container}>
@@ -30,15 +33,11 @@ export const Auth = ({delToken, auth}) => {
             onClick={() => {
               location.href = '/';
               delToken(true);
+              clearAuth();
             }}
           >
           Выйти
           </button>) : null}
     </div>
   );
-};
-
-Auth.propTypes = {
-  delToken: PropTypes.func,
-  auth: PropTypes.object,
 };

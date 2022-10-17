@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import PropTypes from 'prop-types';
 import style from './Post.module.css';
 import {formatDate} from '../../../../utils/formatDate';
@@ -8,7 +9,7 @@ import PostAuthor from './PostAuthor';
 import notPhoto from './img/notphoto.jpg';
 
 export const Post = ({postData}) => {
-  const {title, author, ups, date} = postData;
+  const {title, author, ups, created} = postData;
   return (
     <li className={style.post}>
       <img className={style.img} src={notPhoto} alt={title} />
@@ -20,7 +21,7 @@ export const Post = ({postData}) => {
 
       <Rating ups={ups} />
       <DeleteButton />
-      <time className={style.date} dateTime={date}>{formatDate(date)}</time>
+      <time className={style.date} dateTime={created}>{formatDate(created)}</time>
     </li>
   );
 };

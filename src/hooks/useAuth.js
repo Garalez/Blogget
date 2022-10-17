@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
-import {useEffect, useState} from 'react';
-import {useToken} from './useToken';
+import {useContext, useEffect, useState} from 'react';
 import {URL_API} from '../api/const';
+import {tokenContext} from '../context/tokenContext';
 
 export const useAuth = () => {
-  const [token, delToken] = useToken();
+  const {token, delToken} = useContext(tokenContext);
   const [auth, setAuth] = useState({});
 
   useEffect(() => {
@@ -23,8 +23,11 @@ export const useAuth = () => {
       .catch(err => {
         console.error(err);
         setAuth({});
+        delToken();
       });
   }, [token]);
 
-  return [auth];
+  const clearAuth = () => setAuth({});
+
+  return [auth, clearAuth];
 };
