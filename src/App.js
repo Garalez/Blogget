@@ -8,8 +8,8 @@ function App() {
   return (
     <TokenContextProvider>
       <AuthContextProvider>
-        <Header />
         <PostsContextProvider>
+          <Header />
           <Main />
         </PostsContextProvider>
       </AuthContextProvider>
