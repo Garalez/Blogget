@@ -16,7 +16,8 @@ export const Content = ({title, author, id}) => {
           tsize={22}
           className={style.linkPost}
           href='#post'
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             setIsModalOpen(true);
           }}
         >
@@ -30,6 +31,9 @@ export const Content = ({title, author, id}) => {
         color='orange'
         className={style.linkAuthor}
         href='#author'
+        onClick={(e) => {
+          e.preventDefault();
+        }}
       >
         {author}
       </Text>

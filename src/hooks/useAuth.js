@@ -1,10 +1,13 @@
 /* eslint-disable max-len */
-import {useContext, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {URL_API} from '../api/const';
-import {tokenContext} from '../context/tokenContext';
+import {useDispatch} from 'react-redux';
+import {getToken} from '../api/token';
+import {deleteToken} from '../store';
 
 export const useAuth = () => {
-  const {token, delToken} = useContext(tokenContext);
+  const token = getToken();
+  const dispatch = useDispatch();
   const [auth, setAuth] = useState({});
 
   useEffect(() => {
@@ -15,7 +18,7 @@ export const useAuth = () => {
         Authorization: `bearer ${token}`,
       },
     })
-      .then((response) => (response.status === 401 ? delToken(true) : response.json()))
+      .then((response) => (response.status === 401 ? dispatch(deleteToken()) : response.json()))
       .then(({name, icon_img: iconImg}) => {
         const img = iconImg.replace(/\?.*$/, '');
         setAuth({name, img});
@@ -23,7 +26,7 @@ export const useAuth = () => {
       .catch(err => {
         console.error(err);
         setAuth({});
-        delToken();
+        dispatch(deleteToken());
       });
   }, [token]);
 

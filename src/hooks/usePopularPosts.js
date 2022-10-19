@@ -1,11 +1,11 @@
 /* eslint-disable max-len */
-import {useContext, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {URL_API} from '../api/const';
-import {tokenContext} from '../context/tokenContext';
+import {getToken} from '../api/token';
 import {formatPostsData} from '../utils/formatPostsData';
 
 export const usePopularPosts = () => {
-  const {token} = useContext(tokenContext);
+  const token = getToken();
   const [list, setList] = useState([]);
 
   useEffect(() => {

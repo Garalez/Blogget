@@ -4,12 +4,13 @@ import style from './Auth.module.css';
 import {ReactComponent as LoginIcon} from './img/login.svg';
 import {urlAuth} from '../../../api/auth';
 import {Text} from '../../../UI/Text';
-import {tokenContext} from '../../../context/tokenContext';
 import {authContext} from '../../../context/authContext';
+import {useDispatch} from 'react-redux';
+import {deleteToken} from '../../../store';
 
 
 export const Auth = () => {
-  const {delToken} = useContext(tokenContext);
+  const dispatch = useDispatch();
   const [exitButton, setExitButton] = useState(false);
   const {auth, clearAuth} = useContext(authContext);
 
@@ -31,8 +32,8 @@ export const Auth = () => {
         <button
           className={style.logout}
           onClick={() => {
+            dispatch(deleteToken());
             location.href = '/';
-            delToken(true);
             clearAuth();
           }}
         >
