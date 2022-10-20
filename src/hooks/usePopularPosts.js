@@ -1,29 +1,17 @@
 /* eslint-disable max-len */
-import {useEffect, useState} from 'react';
-import {URL_API} from '../api/const';
-import {getToken} from '../api/token';
-import {formatPostsData} from '../utils/formatPostsData';
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {postsRequestAsync} from '../store/postsData/postsDataAction';
 
 export const usePopularPosts = () => {
-  const token = getToken();
-  const [list, setList] = useState([]);
+  const token = useSelector((state) => state.token.token);
+  const list = useSelector((state) => state.posts.data);
+  const status = useSelector((state) => state.posts.status);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!token) return;
-
-    fetch(`${URL_API}/best`, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then(({data}) => {
-        setList(formatPostsData(data.children));
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    dispatch(postsRequestAsync());
   }, [token]);
 
-  return [list];
+  return [list, status];
 };
