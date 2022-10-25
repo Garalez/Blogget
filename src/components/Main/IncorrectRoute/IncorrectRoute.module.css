@@ -1,0 +1,16 @@
+.wrapper {
+  padding-top: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.title {
+  font-size: 28px;
+  line-height: 40px;
+  text-align: center;
+  color: tomato;
+}
+
+

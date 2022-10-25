@@ -6,7 +6,7 @@ import Date from '../../Main/List/Post/Date';
 export const Comments = ({comments}) => (
   comments.length > 0 ? (
     <ul className={style.list}>
-      {comments.map(comment => (
+      {comments.map(comment => comment.body && (
         <li className={style.item} key={comment.id}>
           <Text
             As='h3'
@@ -24,7 +24,7 @@ export const Comments = ({comments}) => (
           >
             {comment.body}
           </Text>
-          {comment.created && <Date date={comment.created} />}
+          <Date date={comment.created} />
         </li>
       ))}
     </ul>) :

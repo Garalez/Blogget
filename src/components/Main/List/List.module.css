@@ -4,3 +4,29 @@
   justify-content: space-between;
   gap: 30px;
 }
+
+.end {
+  width: 100%;
+  flex-basis: 100%;
+}
+
+.download {
+  width: 50%;
+  height: 50px;
+  background-color: var(--greyD9);
+  color: var(--blue);
+  font-size: 22px;
+  border: none;
+  border-radius: 30px;
+}
+
+.download:hover {
+  background-color: var(--greyE6);
+}
+
+.downloadWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
