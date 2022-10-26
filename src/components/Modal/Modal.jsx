@@ -14,7 +14,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 export const Modal = () => {
   const {id, page} = useParams();
   const navigate = useNavigate();
-  const [[post, comments], status] = useCommentsData(id);
+  const [commentsData, post, status] = useCommentsData(id);
   const overlayRef = useRef(null);
 
   const handleClick = (e) => {
@@ -70,7 +70,7 @@ export const Modal = () => {
 
             <FormComment />
 
-            <Comments comments={comments} />
+            <Comments comments={commentsData} />
 
             <button
               className={style.close}
