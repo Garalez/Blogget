@@ -54,9 +54,9 @@ export const List = () => {
     <>
       <ul className={style.list}>
         {}
-        {after === '' ? (
+        {after === '' & status !== '' ? (
           <Preloader size={200} />
-        ) : status === 'error' ? (
+        ) : status === 'error' || status === '' ? (
           <div className={style.downloadWrapper}>
             <Text As='h2' className={style.title}>
               Ошибка

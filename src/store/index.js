@@ -14,7 +14,5 @@ export const store = configureStore({
     commentsData: commentsDataReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }).concat(tokenMiddleware),
+    getDefaultMiddleware().concat(tokenMiddleware),
 });

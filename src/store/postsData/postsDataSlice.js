@@ -14,35 +14,31 @@ export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    postsRequestSuccessAfter: (state, action) => {
-      state.status = 'loaded';
-      state.posts = [...state.posts, ...action.payload.posts];
+    postsRequest: (state) => {
       state.error = '';
-      state.after = action.payload.after;
-      state.isLast = !action.payload.after;
+      state.status = 'loading';
     },
     changePage: (state, action) => {
-      state.page = action.payload.page;
+      state.page = action.payload;
       state.after = '';
       state.isLast = false;
     },
   },
-  extraReducers: {
-    [postsRequestAsync.pending.type]: (state) => {
-      state.error = '';
-      state.status = 'loading';
-    },
-    [postsRequestAsync.fulfilled.type]: (state, action) => {
-      state.status = 'loaded';
-      state.posts = action.payload.posts;
-      state.error = '';
-      state.after = action.payload.after;
-      state.isLast = !action.payload.after;
-    },
-    [postsRequestAsync.rejected.type]: (state, action) => {
-      state.status = 'error';
-      state.error = action.error;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(postsRequestAsync.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.status = 'loaded';
+          state.posts = action.payload.posts;
+          state.error = '';
+          state.after = action.payload.after;
+          state.isLast = !action.payload.after;
+        }
+      })
+      .addCase(postsRequestAsync.rejected, (state, action) => {
+        state.status = 'error';
+        state.error = action.error;
+      });
   },
 });
 

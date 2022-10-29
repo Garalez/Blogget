@@ -18,8 +18,10 @@ export const postsRequestAsync = createAsyncThunk(
     const after = getState().posts.after;
     const loading = getState().posts.status;
     const isLast = getState().posts.isLast;
+    const posts = getState().posts.posts;
 
     if (!token || loading === 'loading' || loading === 'error' || isLast) return;
+    dispatch(postsSlice.actions.postsRequest());
 
     return axios(
       `${URL_API}/${page}?limit=10&${after ? `after=${after}` : ''}`,
@@ -31,9 +33,9 @@ export const postsRequestAsync = createAsyncThunk(
     )
       .then(({data}) => {
         if (after) {
-          return dispatch(postsSlice.actions.postsRequestSuccessAfter({after: data.data.after, posts: data.data.children}));
+          return {after: data.data.after, posts: [...posts, ...data.data.children]};
         } else {
-          return dispatch(postsSlice.actions.postsRequestSuccess({after: data.data.after, posts: data.data.children}));
+          return {after: data.data.after, posts: data.data.children};
         }
       })
       .catch((error) => ({error}));
