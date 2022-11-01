@@ -4,8 +4,8 @@ import {Preloader} from '../../../UI/Preloader';
 import {Text} from '../../../UI/Text';
 import {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {postsRequestAsync} from '../../../store/postsData/postsDataAction';
 import {Outlet, useParams} from 'react-router-dom';
+import {postsSlice} from '../../../store/postsData/postsDataSlice';
 
 export const List = () => {
   const postsData = useSelector((state) => state.posts.posts);
@@ -19,7 +19,7 @@ export const List = () => {
   let scrollingDownloadCountdown = 2;
 
   useEffect(() => {
-    dispatch(postsRequestAsync(page));
+    dispatch(postsSlice.actions.changePage(page));
     setDownloadMoreBtn(false);
     scrollingDownloadCountdown = 2;
   }, [page]);
@@ -28,7 +28,7 @@ export const List = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          dispatch(postsRequestAsync());
+          dispatch(postsSlice.actions.postsRequest());
           scrollingDownloadCountdown -= 1;
         }
         if (scrollingDownloadCountdown <= 0) {
@@ -54,7 +54,7 @@ export const List = () => {
     <>
       <ul className={style.list}>
         {}
-        {after === '' & status !== '' ? (
+        {(after === '') & (status !== '') ? (
           <Preloader size={200} />
         ) : status === 'error' || status === '' ? (
           <div className={style.downloadWrapper}>
@@ -72,7 +72,7 @@ export const List = () => {
             <div className={style.downloadWrapper}>
               <button
                 className={style.download}
-                onClick={() => dispatch(postsRequestAsync())}
+                onClick={() => dispatch(postsSlice.actions.postsRequest())}
               >
                 Загрузить ещё
               </button>

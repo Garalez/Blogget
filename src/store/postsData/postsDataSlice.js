@@ -1,5 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {postsRequestAsync} from './postsDataAction';
 
 const initialState = {
   status: '',
@@ -15,8 +14,22 @@ export const postsSlice = createSlice({
   initialState,
   reducers: {
     postsRequest: (state) => {
+      console.log(state);
       state.error = '';
       state.status = 'loading';
+    },
+    postsRequestSuccess: (state, action) => {
+      console.log('suc', state, action);
+      state.status = 'loaded';
+      state.posts = action.payload.posts;
+      state.error = '';
+      state.after = action.payload.after;
+      state.isLast = !action.payload.after;
+    },
+    postsRequestError: (state, action) => {
+      console.log('err', state, action);
+      state.status = 'error';
+      state.error = action.error;
     },
     changePage: (state, action) => {
       state.page = action.payload;
@@ -24,22 +37,7 @@ export const postsSlice = createSlice({
       state.isLast = false;
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(postsRequestAsync.fulfilled, (state, action) => {
-        if (action.payload) {
-          state.status = 'loaded';
-          state.posts = action.payload.posts;
-          state.error = '';
-          state.after = action.payload.after;
-          state.isLast = !action.payload.after;
-        }
-      })
-      .addCase(postsRequestAsync.rejected, (state, action) => {
-        state.status = 'error';
-        state.error = action.error;
-      });
-  },
+  extraReducers: {},
 });
 
 export default postsSlice.reducer;
